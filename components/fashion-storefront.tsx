@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowDown, ArrowRight, ArrowUpRight, Menu } from "lucide-react"
 import type { CategoryWithChildren, ProductCard } from "@/lib/types"
 import { formatNaira } from "@/lib/format"
+import { CustomerAccountLink } from "@/components/customer-account-link"
 
 type FashionStorefrontProps = {
   products: ProductCard[]
@@ -100,9 +101,7 @@ export function FashionStorefront({ products, categories }: FashionStorefrontPro
             <span className="block font-serif text-[19px] leading-none tracking-[0.08em] sm:text-[23px]">FRED O</span>
             <span className="mt-1 block text-[7px] uppercase tracking-[0.28em] text-[#77766a] sm:text-[8px]">Fashion & Lifestyle</span>
           </Link>
-          <a href="mailto:hello@fredofashion.com" className="flex items-center gap-2 text-[9px] uppercase tracking-[0.17em] sm:text-[10px]">
-            <span className="hidden sm:inline">Get in touch</span><ArrowUpRight aria-hidden="true" size={15} strokeWidth={1.3} />
-          </a>
+          <CustomerAccountLink />
         </div>
       </header>
 
