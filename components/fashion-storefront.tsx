@@ -3,7 +3,7 @@ import Link from "next/link"
 import { ArrowDown, ArrowRight, ArrowUpRight, Menu } from "lucide-react"
 import type { CategoryWithChildren, ProductCard } from "@/lib/types"
 import { formatNaira } from "@/lib/format"
-import { CustomerAccountLink } from "@/components/customer-account-link"
+import { CustomerAccountLink } from "./customer-account-link"
 
 type FashionStorefrontProps = {
   products: ProductCard[]
