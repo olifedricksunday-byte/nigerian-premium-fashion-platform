@@ -18,7 +18,7 @@ const editorialCategories = [
 
 function ProductTile({ product }: { product: ProductCard }) {
   return (
-    <article className="group min-w-0">
+    <Link href={`/products/${encodeURIComponent(product.slug)}`} className="group min-w-0">
       <div className="relative aspect-[4/5] overflow-hidden bg-[#e8e4da]">
         {product.primary_image ? (
           <Image
@@ -57,7 +57,8 @@ function ProductTile({ product }: { product: ProductCard }) {
         </div>
         <p className="shrink-0 text-[13px] text-[#292d25]">{formatNaira(product.base_price)}</p>
       </div>
-    </article>
+      <span className="sr-only">View {product.name} details</span>
+    </Link>
   )
 }
 
@@ -67,7 +68,10 @@ export function FashionStorefront({ products, categories }: FashionStorefrontPro
   const availableCategories = editorialCategories.filter((category) =>
     categoryNames.has(category.name.toLowerCase()),
   )
-  const categoryCards = availableCategories.length ? availableCategories : editorialCategories
+  const categoryCards = (availableCategories.length ? availableCategories : editorialCategories).map((category) => ({
+    ...category,
+    slug: categories.find((item) => item.name.toLowerCase() === category.name.toLowerCase())?.slug,
+  }))
 
   return (
     <main className="min-h-screen bg-[#f7f5ef] text-[#292d25]">
@@ -83,13 +87,13 @@ export function FashionStorefront({ products, categories }: FashionStorefrontPro
             </summary>
             <nav className="absolute left-0 top-12 flex w-56 flex-col gap-4 border border-[#dcd9cf] bg-[#f7f5ef] p-5 text-[10px] uppercase tracking-[0.17em] shadow-lg">
               <a href="#collections">Collections</a>
-              <a href="#shop">Shop the edit</a>
+              <Link href="/shop">Shop the edit</Link>
               <a href="#story">Our point of view</a>
             </nav>
           </details>
           <nav className="hidden items-center gap-8 text-[10px] uppercase tracking-[0.16em] lg:flex">
             <a className="transition-colors hover:text-[#77816c]" href="#collections">Collections</a>
-            <a className="transition-colors hover:text-[#77816c]" href="#shop">The edit</a>
+            <Link className="transition-colors hover:text-[#77816c]" href="/shop">The edit</Link>
             <a className="transition-colors hover:text-[#77816c]" href="#story">Our story</a>
           </nav>
           <Link href="#top" className="absolute left-1/2 -translate-x-1/2 text-center" aria-label="Fred O Fashion & Lifestyle home">
@@ -137,7 +141,7 @@ export function FashionStorefront({ products, categories }: FashionStorefrontPro
         </div>
         <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
           {categoryCards.map((category, index) => (
-            <a key={category.name} href="#shop" className="group">
+            <Link key={category.name} href={category.slug ? `/shop?category=${encodeURIComponent(category.slug)}` : "/shop"} className="group">
               <div className="relative aspect-[0.78] overflow-hidden bg-[#e8e4da]">
                 <Image src={category.image} alt={`${category.name} fashion collection`} fill sizes="(max-width: 640px) 48vw, 24vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
                 <span className="absolute left-3 top-3 bg-[#f7f5ef]/90 px-2 py-1 text-[8px] uppercase tracking-[0.15em] text-[#46513f]">0{index + 1}</span>
@@ -149,7 +153,7 @@ export function FashionStorefront({ products, categories }: FashionStorefrontPro
                 </div>
                 <ArrowUpRight aria-hidden="true" className="shrink-0 text-[#77766a] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" size={16} strokeWidth={1.3} />
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </section>
@@ -213,7 +217,7 @@ export function FashionStorefront({ products, categories }: FashionStorefrontPro
           </div>
           <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-3 text-[9px] uppercase tracking-[0.16em] text-[#e2e0d6]">
             <a href="#collections" className="hover:text-white">Collections</a>
-            <a href="#shop" className="hover:text-white">The edit</a>
+            <Link href="/shop" className="hover:text-white">The edit</Link>
             <a href="mailto:hello@fredofashion.com" className="hover:text-white">Contact</a>
           </nav>
           <p className="text-[9px] tracking-[0.08em] text-[#c3c4b9]">© {new Date().getFullYear()} Fred O. Made with intention.</p>
