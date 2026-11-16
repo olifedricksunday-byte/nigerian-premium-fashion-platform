@@ -3,8 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Fred O Fashion & Lifestyle | A wardrobe with a point of view',
+  description: 'Discover a considered edit of Nigerian fashion and everyday living at Fred O Fashion & Lifestyle. Thoughtfully chosen pieces, made to be lived in.',
   generator: 'v0.app',
   icons: {
     icon: [
